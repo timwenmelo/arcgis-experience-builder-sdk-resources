@@ -1,7 +1,7 @@
 /**
   Licensing
 
-  Copyright 2021 Esri
+  Copyright 2022 Esri
 
   Licensed under the Apache License, Version 2.0 (the "License"); You
   may not use this file except in compliance with the License. You may
@@ -17,25 +17,22 @@
   A copy of the license is available in the repository's
   LICENSE file.
 */
-import {React, Immutable, DataSourceManager} from 'jimu-core';
-import {MapWidgetSelector} from 'jimu-ui/advanced/setting-components';
-import {ArcGISDataSourceTypes} from 'jimu-arcgis';
+import { React } from 'jimu-core';
+import { MapWidgetSelector } from 'jimu-ui/advanced/setting-components';
 import { AllWidgetSettingProps } from 'jimu-for-builder';
 
-export default class Setting extends React.PureComponent<AllWidgetSettingProps<{}>, {}>{
-  supportedTypes = Immutable([ArcGISDataSourceTypes.WebMap]);
-  dsManager = DataSourceManager.getInstance();
+export default function Setting(
+  props: AllWidgetSettingProps<{}>
+): React.ReactElement {
 
-  onMapSelected = (useMapWidgetIds: string[]) => {
-    this.props.onSettingChange({
-      id: this.props.id,
+  const onMapSelected = (useMapWidgetIds: string[]) => {
+    props.onSettingChange({
+      id: props.id,
       useMapWidgetIds: useMapWidgetIds
     });
   }
 
-  render(){
-    return <div className="sample-use-map-view-setting p-2">
-      <MapWidgetSelector onSelect={this.onMapSelected} useMapWidgetIds={this.props.useMapWidgetIds}/>
-    </div>
-  }
+  return <div className="sample-js-api-widget-setting p-2">
+    <MapWidgetSelector onSelect={onMapSelected} useMapWidgetIds={props.useMapWidgetIds} />
+  </div>
 }
